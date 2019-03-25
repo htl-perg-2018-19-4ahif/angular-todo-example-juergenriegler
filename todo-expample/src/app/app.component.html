@@ -1,0 +1,63 @@
+
+<div style="text-align:center">
+  <h1>
+    TODO
+  </h1>
+</div>
+
+
+<button (click)="add = true; loadPeople()" *ngIf="!add">+</button>
+<button (click)="add = false" *ngIf="add">hide add</button>
+<br><br><br>
+
+<div id="row" *ngFor="let todo of todos">
+  <div id="{{ getId(todo) }}" class="column" *ngIf="show(todo) && showMine(todo)">
+    <table>
+      <tr>
+        <td>
+          Describtion: 
+          <input type="text" [(ngModel)]="todo.description"/><br>
+          Assigned to: 
+          <select [(ngModel)]="todo.assignedTo">
+            <option value="null">no person</option>
+            <option  *ngFor="let person of people" value="{{ person.name }}">{{ person.name }}</option>
+          </select>
+        </td>
+        <td>
+          <button (click)="doneTodo(todo)" *ngIf="!todo.done">done</button>
+          <button (click)="undoneTodo(todo)" *ngIf="todo.done">undone</button>
+        
+        </td>
+        <td>
+          <button (click)="deleteTodo(todo)">delete</button>
+        </td>
+        <td>
+          <button (click)="saveTodo(todo)">save</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<br><br>
+
+<button (click)="loadTodos()">update</button>
+<button (click)="undoneOnly = true" *ngIf="!undoneOnly">hide done</button>
+<button (click)="undoneOnly = false" *ngIf="undoneOnly">show done</button>
+<br>
+<br>
+<input type="input" placeholder="my name is" [(ngModel)]="username"/>
+<button (click)="mineOnly = true" *ngIf="!mineOnly">show mine only</button>
+<button (click)="mineOnly = false" *ngIf="mineOnly">show others also</button>
+<br><br><br><br><br>
+
+<div *ngIf="add">
+  <h3>Add: </h3>
+  <input type="text" placeholder="description" [(ngModel)]="addDescription"/>
+  <select [(ngModel)]="selectedPerson">
+    <option value="null">no person</option>
+    <option  *ngFor="let person of people" value="{{ person.name }}">{{ person.name }}</option>
+  </select>
+  <br>
+  <button (click)="postTodo()">Add</button>
+  
+</div>
